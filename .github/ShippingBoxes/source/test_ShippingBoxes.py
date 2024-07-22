@@ -1,39 +1,30 @@
-import unittest
+import pytest
 from ShippingBoxes import ShippingBoxes
 
-def calculate_boxes(truck_capacity, large_boxes, medium_boxes, small_boxes):
-    large_weight = 10
-    medium_weight = 5
-    small_weight = 1
+@pytest.mark.parametrize("small_size, medium_size, large_size, expected", [
+    (0, 0, 0, [0, 0, 0]),
+    (0, 0, 1, [1, 0, 0]),
+    (0, 1, 0, [0, 0, 1]),
+    (3, 2, 1, [1, 0, 3]),  
+    (7, 3, 1, [1, 1, 2]),  
+])
+def test_valid_cases(small_size, medium_size, large_size, expected):
+    shipping_boxes = ShippingBoxes()
+    result = shipping_boxes.calculate(small_size, medium_size, large_size)
+    assert result == expected
+    print(f"Test case with small_size={small_size}, medium_size={medium_size}, large_size={large_size}: Passed")
 
-    total_large_weight = large_boxes * large_weight
-    total_medium_weight = medium_boxes * medium_weight
-    total_small_weight = small_boxes * small_weight
+@pytest.mark.parametrize("small_size, medium_size, large_size, expected", [
+    (-1, 0, 0, [-1]),
+    (0, -5, 0, [-1]),
+    (0, 0, 2, [-1]),
+    (1, 5, 2, [-1]),
+])
+def test_invalid_cases(small_size, medium_size, large_size, expected):
+    shipping_boxes = ShippingBoxes()
+    result = shipping_boxes.calculate(small_size, medium_size, large_size)
+    assert result == expected
+    print(f"Test case with small_size={small_size}, medium_size={medium_size}, large_size={large_size}: Passed")
 
-    if total_large_weight <= truck_capacity:
-        truck_capacity -= total_large_weight
-    else:
-        return -1
-
-    if total_medium_weight <= truck_capacity:
-        truck_capacity -= total_medium_weight
-    else:
-        return -1
-
-    if total_small_weight <= truck_capacity:
-        truck_capacity -= total_small_weight
-    else:
-        return -1
-
-    return (large_boxes, medium_boxes, small_boxes)
-
-class TestCalculateBoxes(unittest.TestCase):
-
-    def test_1(self):
-        self.assertEqual(calculate_boxes(100, 5, 5, 5), (5, 5, 5))
-
-    def test_2(self):
-        self.assertEqual(calculate_boxes(10, 2, 2, 2), -1)
-
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+    pytest.main()
