@@ -44,3 +44,15 @@ class ShippingBoxes:
             ship_list.append(total_items)
 
         return ship_list
+
+def main():
+        small_size = int(input("Enter the number of small-sized items (1 kg): "))
+        medium_size = int(input("Enter the number of medium-sized items (5 kg): "))
+        large_size = int(input("Enter the number of large-sized items (10 kg): "))
+
+        shipping_boxes = ShippingBoxes()
+        result = shipping_boxes.calculate(small_size, medium_size, large_size)
+        print("Shippable boxes (large, medium, small):", result)
+
+if __name__ == "__main__":
+    main()
