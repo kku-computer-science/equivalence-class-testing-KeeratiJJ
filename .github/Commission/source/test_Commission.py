@@ -36,7 +36,6 @@ class TestCommissionCalculation(unittest.TestCase):
         self.assertEqual(self.comm.check_commission(10, 81, 91), "out of stock")
 
 
-
     def test_sales10(self):
         self.assertEqual(self.comm.check_commission(0, 10, 10), 10500)
 
@@ -63,9 +62,6 @@ class TestCommissionCalculation(unittest.TestCase):
 
     def test_sales18(self):
         self.assertEqual(self.comm.check_commission(0, 81, 91), "out of stock")
-
-
-
 
 
     def test_sales19(self):
@@ -95,6 +91,7 @@ class TestCommissionCalculation(unittest.TestCase):
     def test_sales27(self):
         self.assertEqual(self.comm.check_commission(71, 81, 91), "out of stock")
 
+#===============================================================================================
 
 if __name__ == '__main__':
     unittest.main()
